@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 const authRouter = Router()
 
 authRouter.post('/sign-up', async (req, res) => {
-    const { email, password } = req.body
+    const { name, email, password } = req.body
 
     try {
 
@@ -19,7 +19,7 @@ authRouter.post('/sign-up', async (req, res) => {
         const salt = bcrypt.genSaltSync(+process.env.SALT_ROUNDS)
         const passwordHash = bcrypt.hashSync(password, salt)
         
-        const newUser = await User.create({ email, passwordHash })
+        const newUser = await User.create({ name, email, passwordHash })
         if(newUser) {
             return res.status(201).json({message: 'User created'})
         }
