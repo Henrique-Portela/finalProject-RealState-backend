@@ -7,12 +7,13 @@ const houseSchema = new Schema ({
         type: String,
         required: true
     },
-     buySeelRent: {
+     sellRent: {
         type: String,
         required: true
     },
     picture: {
         type: String,
+        required: true
         
     },
     builtYear: {
@@ -24,11 +25,11 @@ const houseSchema = new Schema ({
         required: true
     },
      bedRooms: {
-        type: String,
+        type: Number,
         required: true
     },
      baths: {
-        type: String,
+        type: Number,
         required: true
     },
      houseSize: {
