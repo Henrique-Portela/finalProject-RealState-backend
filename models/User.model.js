@@ -17,7 +17,11 @@ const userSchema = new Schema ({
     passwordHash: {
         type: String,
         required: true
-    }
+    },
+
+    houses:[
+        {type: mongoose.Types.ObjectId,ref:'House'}
+    ]
 }, {timestamps: true})
 
 export default model('User', userSchema)
