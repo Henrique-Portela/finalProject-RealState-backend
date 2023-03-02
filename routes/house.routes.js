@@ -59,3 +59,4 @@ housesRouter.delete('/delete/:id', isAuthenticatedMiddleware, async (req, res) =
     
 
 export default housesRouter
+
