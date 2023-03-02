@@ -5,7 +5,7 @@ const { model, Schema } = mongoose
 const houseSchema = new Schema ({
 
      userId:{
-        type: mongoose.Schema.Types.ObjectId,ref:"User" // Referencia do usuario byId
+     type: Schema.Types.ObjectId,ref:"User" // Referencia do usuario byId
      },
     address: {
         type: String,

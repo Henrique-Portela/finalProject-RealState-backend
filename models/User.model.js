@@ -20,7 +20,7 @@ const userSchema = new Schema ({
     },
 
     houses:[
-        {type: mongoose.Types.ObjectId,ref:'House'}
+  
     ]
 }, {timestamps: true})
 
