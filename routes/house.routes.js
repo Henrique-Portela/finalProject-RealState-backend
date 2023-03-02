@@ -9,7 +9,7 @@ housesRouter.post('/house', isAuthenticatedMiddleware, async(req,res) =>{
     try{
       const newHouse = await House.create(payload)
       return res.status(201).json(newHouse)
-    }catch{
+    }catch(error){
         console.log(error)
         return res.status(500).json({message:"Error not create house"})
     }

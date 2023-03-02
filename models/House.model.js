@@ -16,8 +16,8 @@ const houseSchema = new Schema ({
         required: true
     },
     picture: {
-        type: String,
-        require: true
+        type:Array,
+        required: true
         
     },
     builtYear: {
