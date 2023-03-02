@@ -5,6 +5,7 @@ import connectDb from './config/db.connection.js'
 import authRouter from './routes/auth.routes.js'
 import houseRouter from './routes/house.routes.js'
 
+
 //const express = require('express')
 //const cors = require('cors')
 //const connectDb = require('./config/db.connection.js')
@@ -17,6 +18,8 @@ app.use(cors())
 app.use(express.json())
 app.use(authRouter)
 app.use(houseRouter)
+
+
 
 
 
