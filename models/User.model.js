@@ -17,7 +17,11 @@ const userSchema = new Schema ({
     passwordHash: {
         type: String,
         required: true
-    }
+    },
+
+    houses:[
+  
+    ]
 }, {timestamps: true})
 
 export default model('User', userSchema)
