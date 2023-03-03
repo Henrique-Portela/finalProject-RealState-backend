@@ -1,6 +1,7 @@
 import {Router} from "express"
 import House from "../models/House.model.js"
-import isAuthenticatedMiddleware from'../middlewares/isAuthenticatedMiddleware.js'
+import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
+import fileUpload from '../config/cloudinary.config.js'
 
 const housesRouter = Router()
 
@@ -24,29 +25,35 @@ housesRouter.get('/viewhouse', async(req, res)=> {
         return res.status(500).json({message:"Server error"})
     }
 })
-housesRouter.get('/viewhouse:id',isAuthenticatedMiddleware, async(req, res)=> {
-    const{id} = req.params
-    try{
+housesRouter.get('/viewhouse/:id',isAuthenticatedMiddleware, async (req, res) => {
+    const{ id } = req.params
+    try {
     const house = await House.findById(id)
-    return res.status(200).json(house)
-    }catch(error){
+    if(!house) {
+        return res.status(404).json({message: 'House not found!'})
+    }
+        return res.status(200).json(house)
+    } catch (error) {
         console.log(error)
         return res.status(500).json({message:"Server error"})
     }
 })
 housesRouter.put('/updatehouse/:id', isAuthenticatedMiddleware, async(req,res) =>{
     const payload = req.body
-    const{id} = req.params
-    try{
-      const updateHouse = await House.findOneAndUpdate({_id: id},payload, {new:true})
-      return res.status(200).json(updateHouse)
-    }catch{
+    const{ id } = req.params
+    try {
+      const updateHouse = await House.findOneAndUpdate({_id: id}, payload, {new:true})
+      if(!updateHouse) {
+        return res.status(404).json({message: 'House Not Found'})
+      }
+      return res.status(200).json({message: 'House Updated', updateHouse})
+    } catch {
         console.log(error)
         return res.status(500).json({message:"'Internal Server Error"})
     }
 })
 
-housesRouter.delete('/delete/:id', isAuthenticatedMiddleware, async (req, res) => {
+housesRouter.delete('/:delete/:id', isAuthenticatedMiddleware, async (req, res) => {
     const { id } = req.params
     try {
         await House.findOneAndDelete({_id: id})
@@ -55,6 +62,10 @@ housesRouter.delete('/delete/:id', isAuthenticatedMiddleware, async (req, res) =
         console.log(error)
         return res.status(500).json({message: 'Internal Server Error'})
     }
+})
+
+housesRouter.post('/uploadMultipleImages', isAuthenticatedMiddleware, fileUpload.array('housePicture', 5), (req, res)=> {
+    res.status(201).json({url: req.file.path})
 })
     
 
