@@ -7,8 +7,10 @@ const housesRouter = Router()
 
 housesRouter.post('/house', isAuthenticatedMiddleware, async(req,res) =>{
     const payload = req.body
+    const userId = req.user.id;
+    
     try{
-      const newHouse = await House.create(payload)
+      const newHouse = await House.create({...payload,userId})
       return res.status(201).json(newHouse)
     }catch(error){
         console.log(error)
