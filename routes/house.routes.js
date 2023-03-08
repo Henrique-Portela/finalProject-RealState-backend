@@ -2,6 +2,7 @@ import {Router} from "express"
 import House from "../models/House.model.js"
 import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
 import fileUpload from '../config/cloudinary.config.js'
+import HouseTest from "../models/House.model.js"
 
 const housesRouter = Router()
 
@@ -19,7 +20,7 @@ housesRouter.post('/house', isAuthenticatedMiddleware, async (req, res) => {
 
 housesRouter.get('/viewhouse', async(req, res) => {
     try {
-    const houses = await House.find({}).populate("userId")
+    const houses = await House.find({})
     return res.status(200).json(houses)
     } catch (error) {
         console.log(error)

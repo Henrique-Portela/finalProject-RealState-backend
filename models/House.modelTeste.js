@@ -2,34 +2,27 @@ import mongoose from 'mongoose'
 
 const { model, Schema } = mongoose
 
-const houseSchema = new Schema ({
+const houseSchemaTest = new Schema ({
 
      userId:{
      type: Schema.Types.ObjectId,ref:"User" // Referencia do usuario byId
      },
     address: {
-        street: {
-            type: String,
-            required: true
-        },
-        neighborhood: {
-            type: String,
-            required: true
-        },
-        city: {
-            type: String,
-            required: true
-        },
-        state: {
-            type: String,
-            required: true
-        },
-        zipCode: {
-            type: Number,
-            required: true
-        },
+        type: String,
+        required: true
     },
-       
+    neighborhood: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    zipCode: {
+        type: Number,
+        required: true
+    },
      sellRent: {
         type: String,
         required: true
@@ -61,4 +54,4 @@ const houseSchema = new Schema ({
     }
 }, { timestamps: true })
 
-export default model ('House', houseSchema)
+export default model ('HouseTest', houseSchemaTest)
