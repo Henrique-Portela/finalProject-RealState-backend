@@ -2,7 +2,7 @@ import {Router} from "express"
 import House from "../models/House.model.js"
 import isAuthenticatedMiddleware from "../middlewares/isAuthenticatedMiddleware.js"
 import fileUpload from '../config/cloudinary.config.js'
-import HouseTest from "../models/House.model.js"
+
 
 const housesRouter = Router()
 
@@ -75,7 +75,7 @@ housesRouter.delete('/:delete/:id', isAuthenticatedMiddleware, async (req, res) 
     }
 })
 
-housesRouter.post('/uploadMultipleImages', isAuthenticatedMiddleware, fileUpload.array('housePicture', 5), (req, res)=> {
+housesRouter.post('/houses/uploadImages', isAuthenticatedMiddleware, fileUpload.array('housePicture', 5), (req, res)=> {
     res.status(201).json({url: req.file.path})
 })
     
