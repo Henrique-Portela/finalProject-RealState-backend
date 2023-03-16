@@ -30,6 +30,36 @@ agentsRouter.get('/viewagent', async(req, res) => {
     }
 })
 
+agentsRouter.get('/viewagent/useragents',isAuthenticatedMiddleware, async (req, res) => {
+    
+    const userId = req.user.id
+    try {
+    const agent = await Agent.find({ userId : userId})
+    if(!agent) {
+        return res.status(404).json({message: 'Agent not found!'})
+    }
+        return res.status(200).json(agent)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message:"Server error"})
+    }
+})
+agentsRouter.get('/viewagent/useragents/:id',isAuthenticatedMiddleware, async (req, res) => {
+    const payload = req.body
+    const { id } = req.params
+    const userId = req.user.id
+    try {
+    const agent = await Agent.findOne({_id: id, userId : userId}, payload)
+    if(!agent) {
+        return res.status(404).json({message: 'Agent not found!'})
+    }
+        return res.status(200).json(agent)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message:"Server error"})
+    }
+})
+
 agentsRouter.put('/updateagent/:id', isAuthenticatedMiddleware, async(req, res) =>{
     const payload = req.body
     const { id } = req.params
