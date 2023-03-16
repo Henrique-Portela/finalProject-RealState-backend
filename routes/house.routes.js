@@ -29,11 +29,11 @@ housesRouter.get('/viewhouse', async(req, res) => {
         return res.status(500).json({message:"Server error"})
     }
 })
-housesRouter.get('/viewhouse/:id',isAuthenticatedMiddleware, async (req, res) => {
-    const { id } = req.params
+housesRouter.get('/viewhouse/userhouses',isAuthenticatedMiddleware, async (req, res) => {
+    
     const userId = req.user.id
     try {
-    const house = await House.findOne({_id : id, userId : userId})
+    const house = await House.find({ userId : userId})
     if(!house) {
         return res.status(404).json({message: 'House not found!'})
     }
@@ -43,7 +43,22 @@ housesRouter.get('/viewhouse/:id',isAuthenticatedMiddleware, async (req, res) =>
         return res.status(500).json({message:"Server error"})
     }
 })
-housesRouter.put('/updatehouse/:id', isAuthenticatedMiddleware, async(req,res) =>{
+housesRouter.get('/viewhouse/userhouses/:id',isAuthenticatedMiddleware, async (req, res) => {
+    const payload = req.body
+    const { id } = req.params
+    const userId = req.user.id
+    try {
+    const house = await House.findOne({_id: id, userId : userId}, payload)
+    if(!house) {
+        return res.status(404).json({message: 'House not found!'})
+    }
+        return res.status(200).json(house)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message:"Server error"})
+    }
+})
+housesRouter.put('/updatehouse/:id', isAuthenticatedMiddleware, async(req, res) =>{
     const payload = req.body
     const { id } = req.params
     const userId = req.user.id
@@ -59,7 +74,7 @@ housesRouter.put('/updatehouse/:id', isAuthenticatedMiddleware, async(req,res) =
     }
 })
 
-housesRouter.delete('/:delete/:id', isAuthenticatedMiddleware, async (req, res) => {
+housesRouter.delete('/delete/:id', isAuthenticatedMiddleware, async (req, res) => {
     const { id } = req.params
     const userId = req.user.id
     try {
@@ -76,7 +91,11 @@ housesRouter.delete('/:delete/:id', isAuthenticatedMiddleware, async (req, res) 
 })
 
 housesRouter.post('/houses/uploadImages', isAuthenticatedMiddleware, fileUpload.array('housePicture', 5), (req, res)=> {
-    res.status(201).json({url: req.file.path})
+   console.log(req)
+    const urls = req.files.map(file => file.path)
+    res.status(201).json({urls})
+
+   
 })
     
 
