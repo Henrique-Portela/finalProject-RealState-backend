@@ -29,6 +29,16 @@ housesRouter.get('/viewhouse', async(req, res) => {
         return res.status(500).json({message:"Server error"})
     }
 })
+housesRouter.get('/viewhouse/:id', async(req, res) => {
+    try {
+    const { id } = req.params
+    const houses = await House.findById(id)
+    return res.status(200).json(houses)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message:"Server error"})
+    }
+})
 housesRouter.get('/viewhouse/userhouses',isAuthenticatedMiddleware, async (req, res) => {
     
     const userId = req.user.id
