@@ -29,6 +29,21 @@ housesRouter.get('/viewhouse', async(req, res) => {
         return res.status(500).json({message:"Server error"})
     }
 })
+
+housesRouter.get('/viewhouse/userhouses',isAuthenticatedMiddleware, async (req, res) => {
+    const payload = req.body 
+    const userId = req.user.id
+    try {
+    const house = await House.find({ userId : userId}, payload)
+    if(!house) {
+        return res.status(404).json({message: 'House not found!'})
+    }
+        return res.status(200).json(house)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message:"Server error"})
+    }
+})
 housesRouter.get('/viewhouse/:id', async(req, res) => {
     try {
     const { id } = req.params
@@ -39,20 +54,7 @@ housesRouter.get('/viewhouse/:id', async(req, res) => {
         return res.status(500).json({message:"Server error"})
     }
 })
-housesRouter.get('/viewhouse/userhouses',isAuthenticatedMiddleware, async (req, res) => {
-    
-    const userId = req.user.id
-    try {
-    const house = await House.find({ userId : userId})
-    if(!house) {
-        return res.status(404).json({message: 'House not found!'})
-    }
-        return res.status(200).json(house)
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({message:"Server error"})
-    }
-})
+
 housesRouter.get('/viewhouse/userhouses/:id',isAuthenticatedMiddleware, async (req, res) => {
     const payload = req.body
     const { id } = req.params
