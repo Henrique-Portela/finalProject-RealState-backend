@@ -5,7 +5,28 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    
+      "name": "teste-render",
+      "type": "module",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "start": "node ./src/index.js",
+        "dev": "nodemon ./src/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "nodemon": "^2.0.15",
+        "mongodb": "^4.3.1"
+      },
+    
+    "test":"echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js"
   },
   "repository": {
@@ -35,3 +56,4 @@
     "validator": "^13.9.0"
   }
 }
+  
