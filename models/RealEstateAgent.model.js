@@ -17,7 +17,7 @@ const agentSchema = new Schema ({
         
     },
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true
     },
      city: {

@@ -35,7 +35,7 @@ const houseSchema = new Schema ({
         required: true
     },
     picture: {
-        type: String,
+        type: Array,
         require: true
         
     },
