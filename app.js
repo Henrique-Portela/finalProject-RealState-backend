@@ -10,7 +10,7 @@ import agentRouter from './routes/realEstateAgent.routes.js'
 const app = express()
 connectDb()
 
-
+app.use(cors({origin: process.env.REACT_URL}))
 app.options("*", cors()),
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
